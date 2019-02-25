@@ -350,13 +350,13 @@ function getOSDViewer($) {
             //To Do: x -> y needs to be reverted after h'bad demo
             if(arrofDataTiles.length > 0 && arrofDataTiles[this.image] && arrofDataTiles[this.image].length > 0) {
                 if(ifdNum == 0 || ifdNum == 1 || ifdNum == 2 || (arrofDataTiles[this.image][this.roi].tileextractorTilesInfoParameter.d[ifdNum] && arrofDataTiles[this.image][this.roi].tileextractorTilesInfoParameter.d[ifdNum][y] && (arrofDataTiles[this.image][this.roi].tileextractorTilesInfoParameter.d[ifdNum][y].indexOf(x) != -1))) {
-                    var best = bestfocus ? "best/":"";
+                    var best = "";
                     return getSlideURI(this.image) + "/tile?query="+imgName+":" + ifdNum + ":" + y + ":" + x;
                 } else {
                     return '';
                 }
             } else {
-                var best = bestfocus ? "best/":"";
+                var best = "";
                 return getSlideURI(this.image) + "/tile?query="+imgName+":" + ifdNum + ":" + y + ":" + x;
             }
         }
@@ -942,12 +942,12 @@ function getOSDViewer($) {
         if (annoBoard) {
             annoBoard.destroyBoard();
         }
-        annoBoard = new Annotation(osd);
-        annoBoard.setPixelToNanometer(osdSettings.tileSources[1].pixelToNanometer);
-        if(!isAnnoHandlerAlreadySet) {
+        annoBoard = {};//new Annotation(osd);
+        //annoBoard.setPixelToNanometer(osdSettings.tileSources[1].pixelToNanometer);
+        /*if(!isAnnoHandlerAlreadySet) {
             addAnnotationEvents();
-        }
-        setImageChangeHandler();
+        }*/
+        //setImageChangeHandler();
 
         var zoomElem = createZoomElement();
         osd.addHandler("zoom", function () {
@@ -964,7 +964,8 @@ function getOSDViewer($) {
         });
         return osd;
     }
-   return function(schemaURIs, canvasId, getOSDCallback, annotationHandlers, imageChangeHandler, showFullPageControl,imageName) {
+   return function(schemaURIs, canvasId, getOSDCallback, annotationHandlers, imageChangeHandler, showFullPageControl,imageName, OpenSeadragon) {
+      window.OpenSeadragon = OpenSeadragon;
       alert("this is inner method");
       var canvasContainer = document.getElementById(canvasId);
         imgName = imageName;

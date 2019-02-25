@@ -9,7 +9,7 @@ export class DisplayService {
   myviewer;
 
   showViewer() {
-    OpenSeadragon({
+    /*OpenSeadragon({
       id:            'openseadragon',
       tileSources:   [
         'https://openseadragon.github.io/example-images/highsmith/highsmith.dzi'
@@ -17,11 +17,19 @@ export class DisplayService {
       showNavigator: true,
       navigatorAutoFade: false,
       showNavigationControl: false
-    });
+    });*/
     this.myviewer = getOSDViewer(OpenSeadragon.Viewer);
   }
 
   showSlide() {
-    this.myviewer();
+    const schemaURIs = 'http://172.28.42.142:8090',
+    canvasId = 'openseadragon',
+    getOsdCallback = function() {
+      alert('get osd callback');
+    }, annotationHandlers = {},
+      imageChangeHandler = {},
+      showFullPageControl = false,
+      imageName = 'jbirh8hc';
+    this.myviewer(schemaURIs, canvasId, getOsdCallback, annotationHandlers, imageChangeHandler, showFullPageControl, imageName, OpenSeadragon);
   }
 }

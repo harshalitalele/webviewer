@@ -2,12 +2,12 @@
  * This service takes in imageID as input
  * returns
  * */
-import * as Openseadragon from 'node_modules/openseadragon';
+import * as OpenSeadragon from 'node_modules/openseadragon';
+import * as getOSDViewer from 'src/app/viewer/webviewer-wrapper';
 
 export class DisplayService {
-
   showViewer() {
-    Openseadragon({
+    OpenSeadragon({
       id:            'openseadragon',
       tileSources:   [
         'https://openseadragon.github.io/example-images/highsmith/highsmith.dzi'
@@ -16,5 +16,9 @@ export class DisplayService {
       navigatorAutoFade: false,
       showNavigationControl: false
     });
+  }
+
+  showSlide() {
+    getOSDViewer();
   }
 }

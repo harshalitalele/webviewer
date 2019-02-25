@@ -28,7 +28,7 @@ export class ViewerComponent implements OnInit {
     this.dispService.showViewer();
   }
 
-  showViewer() {
-
+  showSlide() {
+    this.dispService.showSlide();
   }
 }

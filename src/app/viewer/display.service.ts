@@ -19,6 +19,6 @@ export class DisplayService {
   }
 
   showSlide() {
-    getOSDViewer();
+    getOSDViewer(OpenSeadragon.Viewer);
   }
 }

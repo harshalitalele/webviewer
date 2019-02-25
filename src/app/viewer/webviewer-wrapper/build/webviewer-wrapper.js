@@ -1,27 +1,9 @@
-function getOSDViewer() {
-  alert("getOSDViewer success");
-}
-
-(function (root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // expose as amd module
-    define([], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // expose as commonjs module
-    module.exports = factory();
-  } else {
-    // expose as window.OpenSeadragon
-    root.getOSDViewer = factory();
-  }
-}(this, function () {
-  return getOSDViewer;
-}));
-
-/*
-*
+/**
  * @Author: Harshali.Talele
  * @Description: This is a wrapper over openseadragon library to make it easy to use as per our requirements and image schema.
  *              Completely written using vanilla Javascript.
+ *
+ **/
 var imgName = '' ;
 var annotationRemoteActions = {
     "CREATION": "Created",
@@ -1031,8 +1013,8 @@ function removeDisabledToolbarOverlay(){
 
 function addDisabledToolbarOverlay(){
     if(!document.getElementById('disabledOverlay')) {
-        /!*var slideSource = document.getElementById('toolbarDiv');
-        slideSource.classList.toggle('fade');*!/
+        var slideSource = document.getElementById('toolbarDiv');
+        slideSource.classList.toggle('fade');
         $('#toolbarDiv > div').not('.chatDiv').addClass('fade1');
         var overlayDiv = document.createElement('div');
         overlayDiv.id = 'disabledOverlay';
@@ -1040,4 +1022,18 @@ function addDisabledToolbarOverlay(){
         document.getElementById('toolbarDiv').appendChild(overlayDiv);
     }
 }
-*/
+
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // expose as amd module
+    define([], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // expose as commonjs module
+    module.exports = factory();
+  } else {
+    // expose as window.OpenSeadragon
+    root.getOSDViewer = factory();
+  }
+}(this, function () {
+  return getOSDViewer;
+}));

@@ -965,7 +965,8 @@ function getOSDViewer($) {
         return osd;
     }
    return function(schemaURIs, canvasId, getOSDCallback, annotationHandlers, imageChangeHandler, showFullPageControl,imageName) {
-        var canvasContainer = document.getElementById(canvasId);
+      alert("this is inner method");
+      var canvasContainer = document.getElementById(canvasId);
         imgName = imageName;
         //get your webviewer html and toolbar
         //append as innerHTML

@@ -6,6 +6,8 @@ import * as OpenSeadragon from 'node_modules/openseadragon';
 import * as getOSDViewer from 'src/app/viewer/webviewer-wrapper';
 
 export class DisplayService {
+  myviewer;
+
   showViewer() {
     OpenSeadragon({
       id:            'openseadragon',
@@ -16,9 +18,10 @@ export class DisplayService {
       navigatorAutoFade: false,
       showNavigationControl: false
     });
+    this.myviewer = getOSDViewer(OpenSeadragon.Viewer);
   }
 
   showSlide() {
-    getOSDViewer(OpenSeadragon.Viewer);
+    this.myviewer();
   }
 }

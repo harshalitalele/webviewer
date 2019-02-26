@@ -939,10 +939,10 @@ function getOSDViewer($) {
     function displaySlideImage() {
         osd = OpenSeadragon(osdSettings);
         setRemoteConsultingMethods(osd);
-        if (annoBoard) {
+        /*if (annoBoard) {
             annoBoard.destroyBoard();
         }
-        annoBoard = {};//new Annotation(osd);
+        annoBoard = {};*///new Annotation(osd);
         //annoBoard.setPixelToNanometer(osdSettings.tileSources[1].pixelToNanometer);
         /*if(!isAnnoHandlerAlreadySet) {
             addAnnotationEvents();

@@ -16,19 +16,20 @@ import {DisplayService} from './display.service';
   styleUrls: ['viewer.component.css']
 })
 export class ViewerComponent implements OnInit {
-  imageIds = [];
+  viewerSettings = {
+    slides: ['jbirh8hc'],
+    id: 'openseadragon',
+    showAnnotationsKit: false,
+    showMarkingTool: false
+  };
 
   constructor(private dispService: DisplayService) {}
 
   ngOnInit(): void {
-    // get schema json
-    // get tile URLs method
-    // call OpenSeadragon
-    // emit viewerCreated event to annotations, markingTool, remote components
-    this.dispService.showViewer();
+    this.dispService.initiateViewer();
   }
 
   showSlide() {
-    this.dispService.showSlide();
+    this.dispService.showSlide(this.viewerSettings);
   }
 }

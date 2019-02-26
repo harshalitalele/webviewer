@@ -20,7 +20,8 @@ export class ViewerComponent implements OnInit {
     slides: ['jbirh8hc'],
     id: 'openseadragon',
     showAnnotationsKit: false,
-    showMarkingTool: false
+    showMarkingTool: false,
+    methodHandlers: {}
   };
 
   constructor(private dispService: DisplayService) {}

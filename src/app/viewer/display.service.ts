@@ -4,13 +4,26 @@
 import * as OpenSeadragon from 'node_modules/openseadragon';
 import * as getOSDViewer from 'src/app/viewer/webviewer-wrapper';
 import { AppConstants } from '../app.constants';
+import {Injectable} from '@angular/core';
+import {AnnotationsService} from './webviewer-wrapper/annotations.service';
 
+@Injectable()
 export class DisplayService {
   myviewer;
   osd;
 
+  constructor(private annService: AnnotationsService) {}
+
   initiateViewer() {
     this.myviewer = getOSDViewer(OpenSeadragon.Viewer);
+  }
+
+  getOsdCB() {
+    // initiate basic osd things
+    // show Annotations Kit
+        // annotation service pass osd and basic handlers
+    this.annService.initialize();
+    // show Marking Tools
   }
 
   showSlide(viewerSettings) {
@@ -25,6 +38,7 @@ export class DisplayService {
     canvasId = viewerSettings.id,
     getOsdCallback = function(osdObj) {
       self.osd = osdObj;
+      self.getOsdCB();
       // alert('get osd callback');
     }, annotationHandlers = {},
       imageChangeHandler = {},

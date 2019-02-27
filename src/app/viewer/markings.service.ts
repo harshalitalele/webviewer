@@ -1,5 +1,5 @@
 export class MarkingsService {
   initialize() {
-    alert("Marking service initialized");
+    alert('Marking service initialized');
   }
 }

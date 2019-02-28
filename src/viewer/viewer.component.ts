@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { ParamMap, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-viewer',
@@ -12,9 +12,14 @@ export class ViewerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.imageIds = [this.route.paramMap.destination._value.id];
+    this.route.params.subscribe(params => {
+      this.imageIds = [params['id']];
+    });
+
     // initialize openseadragon
     // initialize our wrapper on top of it
     // call show image
   }
+
+
 }

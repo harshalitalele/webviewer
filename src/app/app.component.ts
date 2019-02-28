@@ -9,14 +9,17 @@ import { Router } from '@angular/router';
 export class AppComponent {
   listOfImages = ['jbirh8hc' , 'lq1zqy8k', 'xqlcocpx'];
   selectedImageId: string;
+  imageIds: string[] = [];
 
   constructor(
     private router: Router
   ) {}
 
   showImage() {
-    alert(this.selectedImageId);
+    this.router.navigate(['/viewer/' + this.imageIds]);
+  }
 
-    this.router.navigate(['/viewer/' + this.selectedImageId]);
+  addNewImage() {
+    this.imageIds.push(this.selectedImageId);
   }
 }

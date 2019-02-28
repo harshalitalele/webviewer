@@ -2,7 +2,7 @@
   <div>
     Main Dashboard
     Select an image id:
-    <select [(ngModel)]="selectedImageId">
+    <select [(ngModel)]="selectedImageId" (ngModelChange)="addNewImage()">
       <option *ngFor="let id of listOfImages" [ngValue]="id">{{id}}</option>
     </select>
     <ul>

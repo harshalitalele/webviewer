@@ -6,20 +6,17 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: 'viewer.component.html'
 })
 export class ViewerComponent implements OnInit {
-  imageIds = [];
+  imageIds: string[] = [];
   constructor(
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.imageIds = [params['id']];
+      const paramsss = params['id'];
+      this.imageIds = paramsss.split(',');
     });
 
-    // initialize openseadragon
-    // initialize our wrapper on top of it
-    // call show image
+
   }
-
-
 }

@@ -1,5 +1,21 @@
 <div>
   <div>
+    Main Dashboard
+    Select an image id:
+    <select [(ngModel)]="selectedImageId">
+      <option *ngFor="let id of listOfImages" [ngValue]="id">{{id}}</option>
+    </select>
+    <ul>
+      Menu
+      <li>
+        <a (click)="showImage()">Viewer</a>
+      </li>
+      <li>
+        <a routerLink="/study">Study</a>
+      </li>
+    </ul>
+  </div>
+  <div>
     <router-outlet></router-outlet>
   </div>
 </div>

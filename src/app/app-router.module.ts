@@ -1,16 +1,21 @@
 import {NgModule} from '@angular/core';
-import {ViewerComponent} from './viewer/viewer.component';
-import {RouterModule} from '@angular/router';
-import {TodoComponent} from './todo.component';
+import { RouterModule } from '@angular/router';
+import {ViewerComponent} from '../viewer/viewer.component';
+import {StudyComponent} from '../study/study.component';
 
-const appRoutes = [
-  { path: 'viewer', component: ViewerComponent},
-  { path: 'todo', component: TodoComponent}
-];
+const appRoutes = [{
+  path: 'viewer/:id',
+  component: ViewerComponent
+}, {
+  path: 'study',
+  component: StudyComponent
+}];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(appRoutes)
+  ],
+  exports: [ RouterModule ]
 })
 export class AppRouterModule {
   //

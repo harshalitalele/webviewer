@@ -1,19 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import {ViewerComponent} from './viewer/viewer.component';
-import {AppRouterModule} from './app-router.module';
-import {TodoComponent} from './todo.component';
+import { StudyModule } from '../study/study.module';
+import { ViewerModule } from '../viewer/viewer.module';
+import {AppRouterModule } from './app-router.module';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ViewerComponent,
-    TodoComponent
+    AppComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
+    StudyModule,
+    ViewerModule,
     AppRouterModule
   ],
   providers: [],

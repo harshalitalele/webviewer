@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
-import { DisplayService} from './viewer/display.service';
-import {AnnotationsService} from './viewer/annotations.service';
-import {MarkingsService} from './viewer/markings.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [ DisplayService, AnnotationsService, MarkingsService ]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  listOfImages = ['jbirh8hc' , 'lq1zqy8k', 'xqlcocpx'];
+  selectedImageId: string;
 
-  constructor(private dispService: DisplayService) {}
+  constructor(
+    private router: Router
+  ) {}
 
-  title = 'viewer';
+  showImage() {
+    alert(this.selectedImageId);
+
+    this.router.navigate(['/viewer/' + this.selectedImageId]);
+  }
 }

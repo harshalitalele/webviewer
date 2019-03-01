@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,10 +13,7 @@ export class ViewerComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const paramsss = params['id'];
-      this.imageIds = paramsss.split(',');
+      this.imageIds = params['id'].split(',');
     });
-
-
   }
 }

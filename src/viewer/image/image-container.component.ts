@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
+import * as OpenSeadragon from 'openseadragon';
+
 @Component({
   selector: 'app-image-container',
   templateUrl: 'image-container.component.html'
@@ -9,6 +11,15 @@ export class ImageContainerComponent implements OnInit {
 
   ngOnInit(): void {
     // initialize openseadragon
+    OpenSeadragon({
+      id:            'openseadragon',
+      tileSources:   [
+        'https://openseadragon.github.io/example-images/highsmith/highsmith.dzi'
+      ],
+      showNavigator: true,
+      navigatorAutoFade: false,
+      showNavigationControl: false
+    });
     // initialize our wrapper on top of it
     alert(this.ids);
   }

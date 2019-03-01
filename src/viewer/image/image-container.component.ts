@@ -13,7 +13,6 @@ export class ImageContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.myViewer =  getOSDViewer(OpenSeadragon.Viewer);
-    // initialize openseadragon
     /*OpenSeadragon({
       id:            'openseadragon',
       tileSources:   [
@@ -35,11 +34,6 @@ export class ImageContainerComponent implements OnInit {
     this.myViewer(schemaURIs, canvasId, getOsdCallback,
       annotationHandlers, imageChangeHandler, showFullPageControl,
       imageName, OpenSeadragon);
-    alert(this.ids);
-  }
-
-  showImage() {
-    // call show image
   }
 
 }

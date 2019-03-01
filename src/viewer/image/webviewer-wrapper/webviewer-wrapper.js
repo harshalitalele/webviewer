@@ -967,7 +967,6 @@ function getOSDViewer($) {
     }
    return function(schemaURIs, canvasId, getOSDCallback, annotationHandlers, imageChangeHandler, showFullPageControl,imageName, OpenSeadragon) {
       window.OpenSeadragon = OpenSeadragon;
-      alert("this is inner method");
       var canvasContainer = document.getElementById(canvasId);
         imgName = imageName;
         //get your webviewer html and toolbar

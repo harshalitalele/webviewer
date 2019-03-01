@@ -14,6 +14,7 @@ export class ViewerComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.imageIds = params['id'].split(',');
+      // reload app-image-container
     });
   }
 }

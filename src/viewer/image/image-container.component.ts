@@ -27,17 +27,14 @@ export class ImageContainerComponent implements OnInit {
     const schemaURIs = 'http://172.28.42.142:8090',
       canvasId = 'openseadragon',
       getOsdCallback = function(osdObj) {
-        /*self.osd = osdObj;
-        self.getOsdCB();*/
         alert('get osd callback');
       }, annotationHandlers = {},
       imageChangeHandler = {},
       showFullPageControl = false,
-      imageName = this.ids[1];
+      imageName = this.ids[this.ids.length - 1];
     this.myViewer(schemaURIs, canvasId, getOsdCallback,
       annotationHandlers, imageChangeHandler, showFullPageControl,
       imageName, OpenSeadragon);
-    // initialize our wrapper on top of it
     alert(this.ids);
   }
 

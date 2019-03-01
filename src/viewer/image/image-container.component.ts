@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 import * as OpenSeadragon from 'openseadragon';
+import * as getOSDViewer from 'webviewer-wrapper';
 
 @Component({
   selector: 'app-image-container',
@@ -10,6 +11,7 @@ export class ImageContainerComponent implements OnInit {
   @Input() ids: string[];
 
   ngOnInit(): void {
+    // getOSDViewer(OpenSeadragon.Viewer);
     // initialize openseadragon
     OpenSeadragon({
       id:            'openseadragon',

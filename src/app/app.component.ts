@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import {OsdService} from '../shared/osd.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ OsdService ]
 })
 export class AppComponent {
   listOfImages = ['jbirh8hc' , 'lq1zqy8k', 'xqlcocpx'];

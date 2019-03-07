@@ -1,8 +1,10 @@
 <div>
   <h2>Viewer Component of the Viewer Module for {{imageIds}}</h2>
-  <div>
+  <div id="viewer">
+    <button (click)="toggleFullScreen()">fullscreen</button>
     <!--<app-annotations></app-annotations>
     <app-markings></app-markings>-->
+    <app-toolbar></app-toolbar>
     <app-image-container [ids]="imageIds"></app-image-container>
   </div>
 </div>

@@ -235,7 +235,7 @@ function WebviewerWrapper (OpenSeadragon) {
     setLevelFolderMap();
     updateOsdSettings();
     var osd = displaySlideImage();
-    //getOSDCallback(osd, annoBoard);
+    getOSDCallback(osd);
   }
 
   function loadDataTilesSchema (imageNo, requestType, url, getOSDCallback, ROI) {

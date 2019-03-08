@@ -17,4 +17,8 @@ export class ViewerComponent implements OnInit {
       // reload app-image-container
     });
   }
+
+  updateOsd() {
+    alert('osd updated');
+  }
 }

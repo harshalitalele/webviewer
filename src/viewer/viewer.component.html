@@ -1,6 +1,6 @@
 <div>
   <h2>Viewer Component of the Viewer Module for {{imageIds}}</h2>
-  <div id="viewer">
+  <div id="viewer" (osdReady)="updateOsd()">
     <!--<app-annotations></app-annotations>
     <app-markings></app-markings>-->
     <app-toolbar [fsElemId]="'viewer'"></app-toolbar>

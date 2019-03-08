@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 interface FsDocument extends HTMLDocument {
   mozFullScreenElement?: Element;
@@ -28,9 +28,10 @@ interface FsDocumentElement extends HTMLElement {
 })
 export class ToolbarComponent {
   isFullScreen = false;
+  @Input() fsElemId;
 
   toggleFullScreen() {
-    const elem = <FsDocumentElement> document.getElementById('viewer');
+    const elem = <FsDocumentElement> document.getElementById(this.fsElemId);
     if (!this.isFullScreen) {
       if (elem.requestFullscreen) {
         elem.requestFullscreen();

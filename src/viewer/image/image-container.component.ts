@@ -17,12 +17,13 @@ export class ImageContainerComponent implements OnInit {
   ngOnInit(): void {
     // Initializing wrapper methods on OpenSeadragon object
     this.viewerWrapper =  new wrapper(OpenSeadragon);
+    const self = this;
 
     const viewerSettings = {
       elementId: 'openseadragon',
       slideIds: this.ids,
       getOSDCallback: function(osd) {
-        this.osdService.setOsd(osd);
+        self.osdService.setOsd(osd);
       },
       annotationHandlers: '',
       imageChangeHandler: ''

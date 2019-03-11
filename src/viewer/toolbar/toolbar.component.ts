@@ -33,14 +33,13 @@ export class ToolbarComponent implements OnInit {
   @Input() fsElemId;
   osdInstance;
   private eventsSubscription: any;
-  @Input() events: Observable<void>;
+  @Input() osdWatch: Observable<void>;
 
   constructor(private osdService: OsdService) {}
 
   ngOnInit(): void {
-    this.eventsSubscription = this.events.subscribe(() => {
+    this.eventsSubscription = this.osdWatch.subscribe(() => {
       this.osdInstance = this.osdService.getOsd();
-      alert('changed osd');
     });
   }
 

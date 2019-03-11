@@ -8,7 +8,7 @@ import {Subject} from 'rxjs';
 })
 export class ViewerComponent implements OnInit {
   imageIds: string[] = [];
-  private eventsSubject: Subject<void> = new Subject<void>();
+  private osdCreated: Subject<void> = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute
@@ -21,8 +21,7 @@ export class ViewerComponent implements OnInit {
     });
   }
 
-  updateOsd() {
-    this.eventsSubject.next();
-    alert('osd updated inside Viewer');
+  announceOsdReady() {
+    this.osdCreated.next();
   }
 }

@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import * as OpenSeadragon from 'openseadragon';
 import * as wrapper from './webviewer-wrapper';
-import {OsdService} from '../../shared/osd.service';
+import {OsdService} from '../shared/osd.service';
 
 @Component({
   selector: 'app-image-container',

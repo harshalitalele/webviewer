@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {OsdService} from '../../shared/osd.service';
-import {Observable} from 'rxjs';
-import {AnnotationsService} from '../annotations.service';
+import {OsdService} from '../shared/osd.service';
+import {AnnotationsService} from '../shared/annotations.service';
 
 interface FsDocument extends HTMLDocument {
   mozFullScreenElement?: Element;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {OsdService} from '../shared/osd.service';
+import {OsdService} from '../viewer/shared/osd.service';
 
 @Component({
   selector: 'app-root',

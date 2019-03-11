@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Subject} from 'rxjs';
-import {AnnotationsService} from './annotations.service';
-import {OsdService} from '../shared/osd.service';
+import {AnnotationsService} from './shared/annotations.service';
+import {OsdService} from './shared/osd.service';
 
 @Component({
   selector: 'app-viewer',

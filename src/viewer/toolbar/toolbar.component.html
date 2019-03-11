@@ -1,4 +1,8 @@
-<div (osdReady)="updateOsd()">
+<div>
   <button (click)="toggleFullScreen()">Fullscreen</button>
   <button (click)="goHome()">Home</button>
+  <div (show)="toolbarSettings.annotations">
+    <button>Rectangle</button>
+    <button>Circle</button>
+  </div>
 </div>

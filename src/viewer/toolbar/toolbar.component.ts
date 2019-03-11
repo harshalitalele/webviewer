@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OsdService} from '../../shared/osd.service';
 import {Observable} from 'rxjs';
+import {AnnotationsService} from '../annotations.service';
 
 interface FsDocument extends HTMLDocument {
   mozFullScreenElement?: Element;
@@ -32,13 +33,18 @@ export class ToolbarComponent implements OnInit {
   isFullScreen = false;
   @Input() fsElemId;
   osdInstance;
+  toolbarSettings = {
+    annotations: true
+  };
 
-  constructor(private osdService: OsdService) {}
+  constructor(private osdService: OsdService,
+              private annService: AnnotationsService) {}
 
   ngOnInit(): void {
     const self = this;
     this.osdService.currentOsd.subscribe(() => {
       this.osdInstance = this.osdService.getOsd();
+      this.annService.activateAnnoBoard();
     });
   }
 

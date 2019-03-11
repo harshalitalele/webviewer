@@ -5,8 +5,7 @@ import {OsdService} from '../shared/osd.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [ OsdService ]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   listOfImages = ['jbirh8hc' , 'lq1zqy8k', 'xqlcocpx'];

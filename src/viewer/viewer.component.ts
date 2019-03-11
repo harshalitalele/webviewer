@@ -8,7 +8,6 @@ import {Subject} from 'rxjs';
 })
 export class ViewerComponent implements OnInit {
   imageIds: string[] = [];
-  private osdCreated: Subject<void> = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute
@@ -19,9 +18,5 @@ export class ViewerComponent implements OnInit {
       this.imageIds = params['id'].split(',');
       // reload app-image-container
     });
-  }
-
-  announceOsdReady() {
-    this.osdCreated.next();
   }
 }

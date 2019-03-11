@@ -3,7 +3,7 @@
   <div id="viewer">
     <!--<app-annotations></app-annotations>
     <app-markings></app-markings>-->
-    <app-toolbar [osdWatch]="osdCreated.asObservable()" [fsElemId]="'viewer'"></app-toolbar>
-    <app-image-container (osdReady)="announceOsdReady()" [ids]="imageIds"></app-image-container>
+    <app-toolbar [fsElemId]="'viewer'"></app-toolbar>
+    <app-image-container [ids]="imageIds"></app-image-container>
   </div>
 </div>

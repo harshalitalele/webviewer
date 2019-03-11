@@ -32,20 +32,15 @@ export class ToolbarComponent implements OnInit {
   isFullScreen = false;
   @Input() fsElemId;
   osdInstance;
-  private eventsSubscription: any;
-  @Input() osdWatch: Observable<void>;
 
   constructor(private osdService: OsdService) {}
 
   ngOnInit(): void {
-    this.eventsSubscription = this.osdWatch.subscribe(() => {
+    const self = this;
+    this.osdService.currentOsd.subscribe(() => {
       this.osdInstance = this.osdService.getOsd();
     });
   }
-
-  /*ngOnDestroy() {
-    this.eventsSubscription.unsubscribe()
-  }*/
 
   toggleFullScreen() {
     const elem = <FsDocumentElement> document.getElementById(this.fsElemId);

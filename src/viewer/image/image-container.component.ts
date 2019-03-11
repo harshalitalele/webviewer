@@ -11,7 +11,6 @@ import {OsdService} from '../../shared/osd.service';
 export class ImageContainerComponent implements OnInit {
   @Input() ids: string[];
   viewerWrapper;
-  @Output() osdReady = new EventEmitter();
 
   constructor(private osdService: OsdService) {}
 
@@ -25,7 +24,6 @@ export class ImageContainerComponent implements OnInit {
       slideIds: this.ids,
       getOSDCallback: function(osd) {
         self.osdService.setOsd(osd);
-        self.osdReady.emit();
       },
       annotationHandlers: '',
       imageChangeHandler: ''

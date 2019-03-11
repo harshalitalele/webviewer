@@ -47,6 +47,10 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
+  drawAnnotation(type) {
+    this.annService.drawAnnotation(type);
+  }
+
   toggleFullScreen() {
     const elem = <FsDocumentElement> document.getElementById(this.fsElemId);
     if (!this.isFullScreen) {

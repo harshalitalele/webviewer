@@ -2,7 +2,7 @@
   <button (click)="toggleFullScreen()">Fullscreen</button>
   <button (click)="goHome()">Home</button>
   <div (show)="toolbarSettings.annotations">
-    <button>Rectangle</button>
+    <button (click)="drawAnnotation('Rectangular')">Rectangle</button>
     <button>Circle</button>
   </div>
 </div>

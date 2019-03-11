@@ -1,13 +1,13 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Subject} from 'rxjs';
-import {AnnotationsService} from './shared/annotations.service';
+
 import {OsdService} from './shared/osd.service';
+import {AnnotationsService} from './shared/annotations.service';
 
 @Component({
   selector: 'app-viewer',
   templateUrl: 'viewer.component.html',
-  providers: [ AnnotationsService, OsdService ]
+  providers: [ OsdService, AnnotationsService ]
 })
 export class ViewerComponent implements OnInit {
   imageIds: string[] = [];

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ViewerComponent implements OnInit {
   imageIds: string[] = [];
+  @Output() osdUpdate = new EventEmitter();
+
   constructor(
     private route: ActivatedRoute
   ) {}
@@ -19,6 +21,7 @@ export class ViewerComponent implements OnInit {
   }
 
   updateOsd() {
-    alert('osd updated');
+    alert('osd updated inside Viewer');
+    this.osdUpdate.emit();
   }
 }

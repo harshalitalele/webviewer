@@ -326,3 +326,48 @@ function WebviewerWrapper (OpenSeadragon) {
 } (this, function () {
   return WebviewerWrapper;
 }));
+
+function getAnnotationCurrentZoom(annotation) {
+  var annotationType = annotation.type,
+    annotationObj = {};
+  switch (annotationType) {
+    case "RECTANGLE":
+      annotationObj.type = "Rectangular";
+      //To Do: -1 multiplier needs to be reverted after h'bad demo
+      var viewerPoint1 = osd.viewport.imageToViewerElementCoordinates(new OpenSeadragon.Point(annotation.pointList[0].pointX, -1*annotation.pointList[0].pointY)),
+        viewerPoint2 = osd.viewport.imageToViewerElementCoordinates(new OpenSeadragon.Point(annotation.pointList[1].pointX, -1*annotation.pointList[1].pointY));
+      annotationObj.x = viewerPoint1.x;
+      annotationObj.y = viewerPoint1.y;
+      annotationObj.width = viewerPoint2.x - viewerPoint1.x;
+      annotationObj.height = viewerPoint2.y - viewerPoint1.y;
+      break;
+    case "CIRCLE":
+      annotationObj.type = "Circular";
+      var viewerPoint1 = osd.viewport.imageToViewerElementCoordinates(new OpenSeadragon.Point(annotation.pointList[0].pointX, -1*annotation.pointList[0].pointY)),
+        viewerPoint2 = osd.viewport.imageToViewerElementCoordinates(new OpenSeadragon.Point(annotation.pointList[1].pointX, -1*annotation.pointList[1].pointY));
+      annotationObj.centerX = viewerPoint1.x;
+      annotationObj.centerY = viewerPoint1.y;
+      annotationObj.radius = Math.sqrt((viewerPoint2.x - viewerPoint1.x)*(viewerPoint2.x - viewerPoint1.x) + (viewerPoint2.y - viewerPoint1.y)*(viewerPoint2.y - viewerPoint1.y));
+      break;
+    case "FREEFORM":
+    case "OPENFREEFORM":
+      annotationObj.type = annotationType === "FREEFORM" ? "Freeform" : "OpenFreeform";
+      annotationObj.points = [];
+      for(var ptIndex in annotation.pointList) {
+        var viewerPoint = osd.viewport.imageToViewerElementCoordinates(new OpenSeadragon.Point(annotation.pointList[ptIndex].pointX, -1*annotation.pointList[ptIndex].pointY));
+        annotationObj.points.push(viewerPoint);
+      }
+      break;
+    case "RULER":
+    case "ARROW":
+      annotationObj.type = annotationType === "RULER" ? "Ruler" : "Arrow";
+      var viewerPoint1 = osd.viewport.imageToViewerElementCoordinates(new OpenSeadragon.Point(annotation.pointList[0].pointX, -1*annotation.pointList[0].pointY)),
+        viewerPoint2 = osd.viewport.imageToViewerElementCoordinates(new OpenSeadragon.Point(annotation.pointList[1].pointX, -1*annotation.pointList[1].pointY));
+      annotationObj.x1 = viewerPoint1.x;
+      annotationObj.y1 = viewerPoint1.y;
+      annotationObj.x2 = viewerPoint2.x;
+      annotationObj.y2 = viewerPoint2.y;
+      break;
+  }
+  return annotationObj;
+}

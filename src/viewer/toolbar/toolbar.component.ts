@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OsdService} from '../../shared/osd.service';
+import {Observable} from 'rxjs';
 
 interface FsDocument extends HTMLDocument {
   mozFullScreenElement?: Element;
@@ -31,12 +32,21 @@ export class ToolbarComponent implements OnInit {
   isFullScreen = false;
   @Input() fsElemId;
   osdInstance;
+  private eventsSubscription: any;
+  @Input() events: Observable<void>;
 
   constructor(private osdService: OsdService) {}
 
   ngOnInit(): void {
-    this.osdInstance = this.osdService.getOsd();
+    this.eventsSubscription = this.events.subscribe(() => {
+      this.osdInstance = this.osdService.getOsd();
+      alert('changed osd');
+    });
   }
+
+  /*ngOnDestroy() {
+    this.eventsSubscription.unsubscribe()
+  }*/
 
   toggleFullScreen() {
     const elem = <FsDocumentElement> document.getElementById(this.fsElemId);
@@ -64,10 +74,6 @@ export class ToolbarComponent implements OnInit {
     }
     this.isFullScreen = !this.isFullScreen;
 
-  }
-
-  updateOsd() {
-    alert('changed osd');
   }
 
   goHome() {

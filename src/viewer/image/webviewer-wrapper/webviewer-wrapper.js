@@ -228,6 +228,7 @@ function WebviewerWrapper (OpenSeadragon) {
 
   function displaySlideImage() {
     var osd = ww.OSD(ww.osdSettings);
+    return osd;
   }
 
   function processSchemaInfo(getOSDCallback){

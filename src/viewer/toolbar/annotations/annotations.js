@@ -1412,7 +1412,7 @@ function Annotation(OpenSeadragon) {
     if (typeof parentElemParam === "string") {
       this.id = parentElemParam;
       this.parentElem = document.getElementById(this.id);
-    } else if (ann.OSD && parentElemParam instanceof ann.OSD.Viewer) {
+    } else {
       this.boardType = "OpenSeadragon";
       this.parentElem = parentElemParam.element;
       this.osdViewer = parentElemParam;

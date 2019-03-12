@@ -1657,3 +1657,59 @@ function Annotation(OpenSeadragon) {
 } (this, function () {
   return Annotation;
 }));
+
+/*
+var upArr = [],
+  downArr = [],
+  twd = 5,
+  tht = 5;
+
+function getUpArr(m, n) {
+  for(var i = 0; i < m; i++) {
+    for(var j = 0; j < n; j++) {
+      if(i%2 && j%2) {
+        var fkey = (i*n+j)*4;
+        downArr.push(fkey);
+        downArr.push(fkey+1);
+        downArr.push(fkey+2);
+        downArr.push(fkey+3);
+        //console.log(fkey);
+      } else {
+        var fkey = (i*n+j)*4;
+        upArr.push(fkey);
+        upArr.push(fkey+1);
+        upArr.push(fkey+2);
+        upArr.push(fkey+3);
+        //console.log(fkey);
+      }
+    }
+  }
+}
+
+function showOutput() {
+  alert("showing output...");
+  var outputArr = [],
+    downKey = 0,
+    upKey = 0;
+  for(var i = 0; i < twd; i++) {
+    for(var j = 0; j < tht; j++) {
+      if(i%2 && j%2) {
+        outputArr.push(downArr[downKey++]);
+        outputArr.push(downArr[downKey++]);
+        outputArr.push(downArr[downKey++]);
+        outputArr.push(downArr[downKey++]);
+        //console.log(downArr[downKey]);
+      } else {
+        outputArr.push(upArr[upKey++]);
+        outputArr.push(upArr[upKey++]);
+        outputArr.push(upArr[upKey++]);
+        outputArr.push(upArr[upKey++]);
+        //console.log(upArr[upKey]);
+      }
+    }
+  }
+}
+
+getUpArr(twd, tht);
+*/
+

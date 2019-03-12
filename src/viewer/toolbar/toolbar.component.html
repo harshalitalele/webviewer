@@ -3,6 +3,10 @@
   <button (click)="goHome()">Home</button>
   <div (show)="toolbarSettings.annotations">
     <button (click)="drawAnnotation('Rectangular')">Rectangle</button>
-    <button>Circle</button>
+    <button (click)="drawAnnotation('Circular')">Circle</button>
+    <button (click)="drawAnnotation('OpenFreeform')">Open Freeform</button>
+    <button (click)="drawAnnotation('Freeform')">Closed Freeform</button>
+    <button (click)="drawAnnotation('Ruler')">Ruler</button>
+    <button (click)="drawAnnotation('Arrow')">Arrow</button>
   </div>
 </div>

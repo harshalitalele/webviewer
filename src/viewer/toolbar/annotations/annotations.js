@@ -853,6 +853,7 @@ function Annotation(OpenSeadragon) {
   ann.rectangularAction = function (annotation) {
     this.type = "Rectangular";
     this.color = "#00ff00";
+    this.lineWidth = 5;
     if(!Object.hasOwnProperty("assign")) {
       for(var k in annotation) {
         this[k] = annotation[k];
@@ -866,14 +867,14 @@ function Annotation(OpenSeadragon) {
   function addHighlightAction(implementedAction, baseElement) {
     implementedAction.element.addEventListener("mouseenter", function (event) {
       var position = implementedAction.getHighlightPosition();
-      ann.Editor("highlight", position, implementedAction, baseElement.parentNode);
+      ann.Editor("highlight", position, implementedAction, baseElement);
     });
   }
 
   ann.rectangularAction.prototype.actionChangeBehavior = function (baseElement, point) {
     var context = baseElement.getContext("2d");
     context.strokeStyle = this.color;
-    context.lineWidth = "5";
+    context.lineWidth = this.lineWidth;
     if (actionCompleted) {
       context.beginPath();
       this.x = point.x;
@@ -895,6 +896,7 @@ function Annotation(OpenSeadragon) {
     var context = baseElement.getContext("2d");
     context.closePath();
 
+    context.clearRect(0, 0, baseElement.width, baseElement.height);
     this.showAnnotation(baseElement.parentNode);
 
     this.points = [];
@@ -907,10 +909,10 @@ function Annotation(OpenSeadragon) {
     element.setAttribute("id", "rectangular-annotation");
 
     //set height and width of the canvas element
-    element.style.width = Math.abs(this.width) + "px";
-    element.style.height = Math.abs(this.height) + "px";
+    element.style.width = Math.abs(this.width) - this.lineWidth + "px";
+    element.style.height = Math.abs(this.height) - this.lineWidth + "px";
     element.style.zIndex = "2";
-    element.style.border = "5px solid " + this.color;
+    element.style.border = this.lineWidth + "px solid " + this.color;
 
     this.size = Math.abs(this.width) * Math.abs(this.height);
 
@@ -918,12 +920,12 @@ function Annotation(OpenSeadragon) {
     this.element = element;
 
     this.element.style.position = "absolute";
-    this.element.style.top = this.height > 0 ? this.y + "px" : this.y + this.height + "px";
-    this.element.style.left = this.width > 0 ? this.x + "px" : this.x + this.width + "px";
+    this.element.style.top = this.height > 0 ? this.y - this.lineWidth/2 + "px" : this.y + this.height - this.lineWidth/2 + "px";
+    this.element.style.left = this.width > 0 ? this.x - this.lineWidth/2 + "px" : this.x + this.width - this.lineWidth/2 + "px";
 
     baseElement.appendChild(this.element);
 
-    addHighlightAction(this, baseElement.firstElementChild);
+    addHighlightAction(this, baseElement);
   };
 
   ann.rectangularAction.prototype.deleteAnnotation = function () {
@@ -952,6 +954,7 @@ function Annotation(OpenSeadragon) {
   ann.circularAction = function (annotation) {
     this.type = "Circular";
     this.color = "#00ff00";
+    this.lineWidth = 50;
     if(!Object.hasOwnProperty("assign")) {
       for(var k in annotation) {
         this[k] = annotation[k];
@@ -976,7 +979,7 @@ function Annotation(OpenSeadragon) {
   ann.circularAction.prototype.actionChangeBehavior = function (baseElement, point) {
     var context = baseElement.getContext("2d");
     context.strokeStyle = this.color;
-    context.lineWidth = "5";
+    context.lineWidth = this.lineWidth;
     if (actionCompleted) {
       context.beginPath();
       this.centerX = point.x;
@@ -1006,10 +1009,10 @@ function Annotation(OpenSeadragon) {
     element.setAttribute("id", "circular-annotation");
 
     //set height and width of the canvas element
-    element.style.width = this.radius * 2 + "px";
-    element.style.height = this.radius * 2 + "px";
+    element.style.width = this.radius * 2 - this.lineWidth + "px";
+    element.style.height = this.radius * 2 - this.lineWidth + "px";
     element.style.zIndex = "2";
-    element.style.border = "5px solid " + this.color;
+    element.style.border = this.lineWidth + "px solid " + this.color;
     element.style.borderRadius = "50%";
 
     this.size = this.radius * 4;
@@ -1020,8 +1023,8 @@ function Annotation(OpenSeadragon) {
     this.points = [];
 
     this.element.style.position = "absolute";
-    this.element.style.top = this.centerY - this.radius + "px";
-    this.element.style.left = this.centerX - this.radius + "px";
+    this.element.style.top = this.centerY - this.radius - this.lineWidth/2 + "px";
+    this.element.style.left = this.centerX - this.radius - this.lineWidth/2 + "px";
 
     baseElement.appendChild(this.element);
 

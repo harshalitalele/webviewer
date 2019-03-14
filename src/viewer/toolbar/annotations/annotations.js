@@ -476,6 +476,7 @@ function Annotation(OpenSeadragon) {
     this.points.push(point);
     updateActionBoundaries(point, this.actionBoundaries);
 
+    context.clearRect(0, 0, baseElement.width, baseElement.height);
     this.showAnnotation(this.points, baseElement.parentNode);
 
     actionCompleted = true;
@@ -510,7 +511,7 @@ function Annotation(OpenSeadragon) {
         length = Math.sqrt(xdiff*xdiff + ydiff*ydiff),
         angle = Math.atan2((point2.y - point1.y),(point2.x - point1.x))*180/Math.PI;
       lineElem.style.borderColor = "#00ff00";
-      lineElem.style.borderWidth = this.lineWidth + "px";
+      lineElem.style.borderWidth = this.lineWidth/2 + "px";
       lineElem.style.width = length * 100 / (this.actionBoundaries.width) + "%";
       lineElem.style.height = "0px";
       lineElem.style.position = "absolute";
@@ -636,7 +637,7 @@ function Annotation(OpenSeadragon) {
     for(var i = 2; i < origDatasetLen; i++) {
       var currentPt = points[i];
       //check for nearness
-      if(Math.abs(currentPt.x - lastPoint.x) < ptDist && Math.abs(currentPt.y - lastPoint.y) < ptDist) {
+      if(Math.sqrt((currentPt.y - lastPoint.y)**2 + (currentPt.x - lastPoint.x)**2) < ptDist) {
         continue;
       } else {
         //check for slope
@@ -655,7 +656,7 @@ function Annotation(OpenSeadragon) {
   ann.closedFreeformAction = function (annotation, actionBoundaries) {
     this.type = "Freeform";
     this.color = "#00ff00";
-    this.lineWidth = 5;
+    this.lineWidth = 50;
     this.points = [];
     this.comment = "";
     if(!Object.hasOwnProperty("assign")) {
@@ -716,11 +717,11 @@ function Annotation(OpenSeadragon) {
     context.stroke();
     context.closePath();
     this.points.push(point);
-    this.points.push(this.points[0]);
     updateActionBoundaries(point, this.actionBoundaries);
 
     this.tempLayer.parentNode.removeChild(this.tempLayer);
 
+    //context.clearRect(0, 0, baseElement.width, baseElement.height);
     this.showAnnotation(this.points, baseElement.parentNode);
 
     actionCompleted = true;
@@ -733,7 +734,9 @@ function Annotation(OpenSeadragon) {
 
     element.setAttribute("id", "closed-freeform-annotation");
 
-    points = this.points = zipPoints(points, 0.15);
+    points = zipPoints(points, 0.15);
+    points.push(points[0]);
+    this.points = points;
 
     //if this.actionBoundaries not there get them from points and set them
     if (!this.actionBoundaries || this.actionBoundaries.width === 0) {
@@ -751,16 +754,17 @@ function Annotation(OpenSeadragon) {
         lineElem = document.createElement("hr"),
         xdiff = point2.x - point1.x,
         ydiff = point2.y - point1.y,
-        length = Math.sqrt(xdiff*xdiff + ydiff*ydiff),
+        length = Math.sqrt(xdiff*xdiff + ydiff*ydiff) - this.lineWidth/2,
         angle = Math.atan2((point2.y - point1.y),(point2.x - point1.x))*180/Math.PI,
         scaleParam = "";
-      lineElem.style.borderColor = this.color;
-      lineElem.style.borderWidth = this.lineWidth + "px";
+      lineElem.style.borderColor = "red";//this.color;
+      lineElem.style.borderWidth = this.lineWidth/2 + "px";
+      lineElem.style.borderRadius = 2*this.lineWidth + "px";
       lineElem.style.width = length * 100 / (this.actionBoundaries.width) + "%";
       lineElem.style.height = "0px";
       lineElem.style.position = "absolute";
-      lineElem.style.top = (point1.y - this.actionBoundaries.y) * 100 / this.actionBoundaries.height + "%";
-      lineElem.style.left = (point1.x - this.actionBoundaries.x) * 100 / this.actionBoundaries.width + "%";
+      lineElem.style.top = (point1.y - this.actionBoundaries.y) * 100 / (this.actionBoundaries.height) + "%";
+      lineElem.style.left = (point1.x - this.actionBoundaries.x) * 100 / (this.actionBoundaries.width) + "%";
       lineElem.style.margin = "0px";
       lineElem.style.transformOrigin = "left center";
       lineElem.setAttribute("noshade", "");
@@ -954,7 +958,7 @@ function Annotation(OpenSeadragon) {
   ann.circularAction = function (annotation) {
     this.type = "Circular";
     this.color = "#00ff00";
-    this.lineWidth = 50;
+    this.lineWidth = 5;
     if(!Object.hasOwnProperty("assign")) {
       for(var k in annotation) {
         this[k] = annotation[k];
@@ -999,6 +1003,7 @@ function Annotation(OpenSeadragon) {
     var context = baseElement.getContext("2d");
     context.closePath();
 
+    context.clearRect(0, 0, baseElement.width, baseElement.height);
     this.showAnnotation(baseElement.parentNode);
 
     actionCompleted = true;
@@ -1057,6 +1062,7 @@ function Annotation(OpenSeadragon) {
   ann.rulerAction = function (annotation) {
     this.type = "Ruler";
     this.color = "#00ff00";
+    this.lineWidth = 50;
     if(!Object.hasOwnProperty("assign")) {
       for(var k in annotation) {
         this[k] = annotation[k];
@@ -1078,7 +1084,7 @@ function Annotation(OpenSeadragon) {
     var context = baseElement.getContext("2d");
     context.strokeStyle = this.color;
     context.font = "15px Arial green";
-    context.lineWidth = "5";
+    context.lineWidth = this.lineWidth;
     if (actionCompleted) {
       context.beginPath();
       this.x1 = point.x;
@@ -1137,7 +1143,7 @@ function Annotation(OpenSeadragon) {
 
     var lineElem = document.createElement("hr");
     lineElem.style.borderColor = "#00ff00";
-    lineElem.style.borderWidth = "5px";
+    lineElem.style.borderWidth = this.lineWidth + "px";
     lineElem.style.width = "100%";
     lineElem.style.position = "absolute";
     lineElem.style.margin = "0px";
@@ -1157,8 +1163,8 @@ function Annotation(OpenSeadragon) {
     this.element = element;
 
     this.element.style.position = "absolute";
-    this.element.style.top = this.y1 + "px";
-    this.element.style.left = this.x1 + "px";
+    this.element.style.top = this.y1 - this.lineWidth + "px";
+    this.element.style.left = this.x1 - this.lineWidth + "px";
 
     baseElement.appendChild(this.element);
 

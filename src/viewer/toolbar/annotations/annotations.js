@@ -656,7 +656,7 @@ function Annotation(OpenSeadragon) {
   ann.closedFreeformAction = function (annotation, actionBoundaries) {
     this.type = "Freeform";
     this.color = "#00ff00";
-    this.lineWidth = 50;
+    this.lineWidth = 5;
     this.points = [];
     this.comment = "";
     if(!Object.hasOwnProperty("assign")) {
@@ -721,7 +721,7 @@ function Annotation(OpenSeadragon) {
 
     this.tempLayer.parentNode.removeChild(this.tempLayer);
 
-    //context.clearRect(0, 0, baseElement.width, baseElement.height);
+    context.clearRect(0, 0, baseElement.width, baseElement.height);
     this.showAnnotation(this.points, baseElement.parentNode);
 
     actionCompleted = true;
@@ -754,16 +754,16 @@ function Annotation(OpenSeadragon) {
         lineElem = document.createElement("hr"),
         xdiff = point2.x - point1.x,
         ydiff = point2.y - point1.y,
-        length = Math.sqrt(xdiff*xdiff + ydiff*ydiff) - this.lineWidth/2,
+        length = Math.sqrt(xdiff*xdiff + ydiff*ydiff),
         angle = Math.atan2((point2.y - point1.y),(point2.x - point1.x))*180/Math.PI,
         scaleParam = "";
-      lineElem.style.borderColor = "red";//this.color;
+      lineElem.style.borderColor = this.color;
       lineElem.style.borderWidth = this.lineWidth/2 + "px";
       lineElem.style.borderRadius = 2*this.lineWidth + "px";
       lineElem.style.width = length * 100 / (this.actionBoundaries.width) + "%";
       lineElem.style.height = "0px";
       lineElem.style.position = "absolute";
-      lineElem.style.top = (point1.y - this.actionBoundaries.y) * 100 / (this.actionBoundaries.height) + "%";
+      lineElem.style.top = (point1.y - this.actionBoundaries.y - this.lineWidth/2) * 100 / (this.actionBoundaries.height) + "%";
       lineElem.style.left = (point1.x - this.actionBoundaries.x) * 100 / (this.actionBoundaries.width) + "%";
       lineElem.style.margin = "0px";
       lineElem.style.transformOrigin = "left center";

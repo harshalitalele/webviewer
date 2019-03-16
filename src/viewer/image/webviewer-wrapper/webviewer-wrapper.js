@@ -11,7 +11,7 @@ function WebviewerWrapper (OpenSeadragon) {
   ww.arrOfSchemas = [];
   ww.arrofDataTiles = [];
 
-  var slideURI = "http://172.28.42.142:8090",
+  var slideURI = "http://172.28.42.139:8090",
     defaultSettings = {
       elementId: 'openseadragon',
       slideIds: [],

@@ -1135,27 +1135,33 @@ function Annotation(OpenSeadragon) {
   ann.rulerAction.prototype.showAnnotation = function (baseElement) {
     var element = document.createElement("div");
     element.setAttribute("id", "ruler-annotation");
+    this.x1 = this.x1;
+    this.x2 = this.x2;
+    this.y1 = this.y1;
+    this.y2 = this.y2;
     var xdiff = Math.abs(this.x2 - this.x1);
     var ydiff = Math.abs(this.y2 - this.y1);
     var length = Math.sqrt(xdiff*xdiff + ydiff*ydiff);
     this.length = length;
-    element.style.width = length + "px";
+    element.style.width = length - this.lineWidth + "px";
     element.style.height = ydiff + "px";
 
     var lineElem = document.createElement("hr");
-    lineElem.style.borderColor = "#00ff00";
-    lineElem.style.borderWidth = this.lineWidth + "px";
+    lineElem.style.outlineOffset = 0 + "px";
+    lineElem.style.outline = "solid " + this.lineWidth/2 + "px red";
     lineElem.style.width = "100%";
     lineElem.style.position = "absolute";
-    lineElem.style.margin = "0px";
     lineElem.setAttribute("noshade", "");
     var angle = Math.atan((this.y2 - this.y1)/(this.x2 - this.x1))*180/Math.PI;
     if((this.x2 < this.x1 && this.y2 > this.y1) || (this.x2 < this.x1 && this.y2 < this.y1)) {
       angle = 180 + angle;
     }
     this.angle = angle;
+    var topMargin = this.lineWidth/2 * Math.sin((180 - angle)*Math.PI/180),
+        leftMargin = -1*this.lineWidth/2 * Math.cos((180 - angle)*Math.PI/180);
+    lineElem.style.margin = topMargin + "px 0 0 " + leftMargin + "px";
     lineElem.style.transform = "rotate(" + angle + "deg)";
-    lineElem.style.transformOrigin = "left top";
+    lineElem.style.transformOrigin = "left center";
 
     this.size = Math.abs(xdiff) * Math.abs(ydiff);
     element.appendChild(lineElem);
@@ -1164,8 +1170,8 @@ function Annotation(OpenSeadragon) {
     this.element = element;
 
     this.element.style.position = "absolute";
-    this.element.style.top = this.y1 - this.lineWidth + "px";
-    this.element.style.left = this.x1 - this.lineWidth + "px";
+    this.element.style.top = this.y1 + "px";
+    this.element.style.left = this.x1  + "px";
 
     baseElement.appendChild(this.element);
 

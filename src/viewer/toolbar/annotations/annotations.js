@@ -1148,7 +1148,7 @@ function Annotation(OpenSeadragon) {
 
     var lineElem = document.createElement("hr");
     lineElem.style.outlineOffset = 0 + "px";
-    lineElem.style.outline = "solid " + this.lineWidth/2 + "px red";
+    lineElem.style.outline = "solid " + this.lineWidth/2 + "px " + this.color;
     lineElem.style.width = "100%";
     lineElem.style.position = "absolute";
     lineElem.setAttribute("noshade", "");
@@ -1254,6 +1254,7 @@ function Annotation(OpenSeadragon) {
   ann.arrowAction = function (annotation) {
     this.type = "Arrow";
     this.color = "#00ff00";
+    this.lineWidth = 50;
     if(!Object.hasOwnProperty("assign")) {
       for(var k in annotation) {
         this[k] = annotation[k];
@@ -1274,7 +1275,7 @@ function Annotation(OpenSeadragon) {
   ann.arrowAction.prototype.actionChangeBehavior = function (baseElement, point) {
     var context = baseElement.getContext("2d");
     context.strokeStyle = this.color;
-    context.lineWidth = "5";
+    context.lineWidth = this.lineWidth;
     if (actionCompleted) {
       context.beginPath();
       this.x1 = point.x;
@@ -1325,25 +1326,28 @@ function Annotation(OpenSeadragon) {
     var ydiff = Math.abs(this.y2 - this.y1);
     var length = Math.sqrt(xdiff*xdiff + ydiff*ydiff);
     this.length = length;
-    element.style.width = length + "px";
+    element.style.width = length - this.lineWidth + "px";
     element.style.height = ydiff + "px";
 
     var lineElemWrapper = document.createElement("div"),
       lineElem = document.createElement("hr");
-    lineElem.style.borderColor = "#00ff00";
-    lineElem.style.borderWidth = "4px";
+    lineElem.style.outlineOffset = "0px";
+    lineElem.style.outline = "solid " + this.lineWidth/2 + "px red";
     lineElem.style.width = "100%";
     lineElem.style.position = "absolute";
-    lineElem.style.margin = "0px";
     lineElem.setAttribute("noshade", "");
     var angle = Math.atan((this.y2 - this.y1)/(this.x2 - this.x1))*180/Math.PI;
     if((this.x2 < this.x1 && this.y2 > this.y1) || (this.x2 < this.x1 && this.y2 < this.y1)) {
       angle = 180 + angle;
     }
     this.angle = angle;
+    var topMargin = this.lineWidth/2 * Math.sin((180 - angle)*Math.PI/180),
+      leftMargin = -1*this.lineWidth/2 * Math.cos((180 - angle)*Math.PI/180);
+    lineElem.style.margin = "0px";
+    lineElemWrapper.style.margin = topMargin + "px 0 0 " + leftMargin + "px";
     lineElemWrapper.appendChild(lineElem);
     lineElemWrapper.style.transform = "rotate(" + angle + "deg)";
-    lineElemWrapper.style.transformOrigin = "left top";
+    lineElemWrapper.style.transformOrigin = "left center";
 
     this.size = Math.abs(xdiff) * Math.abs(ydiff);
     element.appendChild(lineElemWrapper);

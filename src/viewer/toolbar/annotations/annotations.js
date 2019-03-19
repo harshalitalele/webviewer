@@ -1063,7 +1063,7 @@ function Annotation(OpenSeadragon) {
   ann.rulerAction = function (annotation) {
     this.type = "Ruler";
     this.color = "#00ff00";
-    this.lineWidth = 50;
+    this.lineWidth = 5;
     if(!Object.hasOwnProperty("assign")) {
       for(var k in annotation) {
         this[k] = annotation[k];
@@ -1135,10 +1135,6 @@ function Annotation(OpenSeadragon) {
   ann.rulerAction.prototype.showAnnotation = function (baseElement) {
     var element = document.createElement("div");
     element.setAttribute("id", "ruler-annotation");
-    this.x1 = this.x1;
-    this.x2 = this.x2;
-    this.y1 = this.y1;
-    this.y2 = this.y2;
     var xdiff = Math.abs(this.x2 - this.x1);
     var ydiff = Math.abs(this.y2 - this.y1);
     var length = Math.sqrt(xdiff*xdiff + ydiff*ydiff);
@@ -1254,7 +1250,7 @@ function Annotation(OpenSeadragon) {
   ann.arrowAction = function (annotation) {
     this.type = "Arrow";
     this.color = "#00ff00";
-    this.lineWidth = 50;
+    this.lineWidth = 5;
     if(!Object.hasOwnProperty("assign")) {
       for(var k in annotation) {
         this[k] = annotation[k];
@@ -1332,7 +1328,7 @@ function Annotation(OpenSeadragon) {
     var lineElemWrapper = document.createElement("div"),
       lineElem = document.createElement("hr");
     lineElem.style.outlineOffset = "0px";
-    lineElem.style.outline = "solid " + this.lineWidth/2 + "px red";
+    lineElem.style.outline = "solid " + this.lineWidth/2 + "px " + this.color;
     lineElem.style.width = "100%";
     lineElem.style.position = "absolute";
     lineElem.setAttribute("noshade", "");
@@ -1360,8 +1356,8 @@ function Annotation(OpenSeadragon) {
     headElemStyles.width = "20px";
     headElemStyles.height = "20px";
     headElemStyles.display = "inline-block";
-    headElemStyles.padding = "3px";
-    headElemStyles.marginTop = "-9px";
+    headElemStyles.padding = "0px";
+    headElemStyles.marginTop = "-11px";
     headElemStyles.float = "right";
     headElemStyles.transform = "rotate(-45deg)";
     lineElemWrapper.appendChild(headElem);

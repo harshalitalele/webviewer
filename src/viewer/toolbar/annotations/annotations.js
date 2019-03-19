@@ -167,7 +167,7 @@ function Annotation(OpenSeadragon) {
     editorElement.style.position = "absolute";
     editorElement.style.zIndex = "999999998";
     editorElement.style.display = "block";
-    document.body.appendChild(editorElement);
+    document.getElementById("openseadragon").parentElement.appendChild(editorElement);
 
     var editorOut = true,
       annotationOut = false;
@@ -510,7 +510,7 @@ function Annotation(OpenSeadragon) {
         ydiff = point2.y - point1.y,
         length = Math.sqrt(xdiff*xdiff + ydiff*ydiff),
         angle = Math.atan2((point2.y - point1.y),(point2.x - point1.x))*180/Math.PI;
-      lineElem.style.borderColor = "red";// "#00ff00";
+      lineElem.style.borderColor = this.color;
       lineElem.style.borderWidth = this.lineWidth/2 + "px";
       lineElem.style.borderRadius = this.lineWidth*4 + "px";
       lineElem.style.width = length * 100 / (this.actionBoundaries.width) + "%";

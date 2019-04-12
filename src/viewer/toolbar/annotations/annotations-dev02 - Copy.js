@@ -1,4 +1,96 @@
-// This file has no makrer and fill related changes
+annoBoard.parentElem.addEventListener("onAnnotationCreated", function(event) {
+            var annotation = event.annotation,
+                annotationObjToSave = {
+                    comments: annotation.comment,
+                    roiIndex: osdSettings.tileSources[osd._sequenceIndex].roi,
+                    slideId: 0,
+                    pointList: []
+                },
+                relativePt;
+
+            switch(annotation.type) {
+                case "Rectangular":
+                    annotationObjToSave.type = "RECTANGLE";
+                    relativePt = osd.viewport.viewerElementToImageCoordinates(new OpenSeadragon.Point(annotation.x, annotation.y));
+                    //To Do: -1 multiplier needs to be reverted after h'bad demo
+                    annotationObjToSave.pointList.push({
+                        pointID: null,
+                        pointX: relativePt.x,
+                        pointY: -1*relativePt.y
+                    });
+                    relativePt = osd.viewport.viewerElementToImageCoordinates(new OpenSeadragon.Point(annotation.x + annotation.width, annotation.y + annotation.height));
+                    annotationObjToSave.pointList.push({
+                        pointID: null,
+                        pointX: relativePt.x,
+                        pointY: -1*relativePt.y
+                    });
+                    break;
+                case "Circular":
+                    annotationObjToSave.type = "CIRCLE";
+                    relativePt = osd.viewport.viewerElementToImageCoordinates(new OpenSeadragon.Point(annotation.centerX, annotation.centerY));
+                    annotationObjToSave.pointList.push({
+                        pointID: null,
+                        pointX: relativePt.x,
+                        pointY: -1*relativePt.y
+                    });
+                    relativePt = osd.viewport.viewerElementToImageCoordinates(new OpenSeadragon.Point(annotation.centerX + (annotation.radius / Math.sqrt(2)), annotation.centerY + (annotation.radius / Math.sqrt(2))));
+                    annotationObjToSave.pointList.push({
+                        pointID: null,
+                        pointX: relativePt.x,
+                        pointY: -1*relativePt.y
+                    });
+                    break;
+                case "Freeform":
+                case "OpenFreeform":
+                    annotationObjToSave.type = annotation.type === "Freeform" ? "FREEFORM" : "OPENFREEFORM";
+                    for(var i in annotation.points) {
+                        relativePt = osd.viewport.viewerElementToImageCoordinates(new OpenSeadragon.Point(annotation.points[i].x, annotation.points[i].y));
+                        annotationObjToSave.pointList.push({
+                            pointID: null,
+                            pointX: relativePt.x,
+                            pointY: -1*relativePt.y
+                        });
+                    }
+                    break;
+                case "Ruler":
+                case "Arrow":
+                    annotationObjToSave.type = annotation.type.toUpperCase();
+                    relativePt = osd.viewport.viewerElementToImageCoordinates(new OpenSeadragon.Point(annotation.x1, annotation.y1));
+                    annotationObjToSave.pointList.push({
+                        pointID: null,
+                        pointX: relativePt.x,
+                        pointY: -1*relativePt.y
+                    });
+                    relativePt = osd.viewport.viewerElementToImageCoordinates(new OpenSeadragon.Point(annotation.x2, annotation.y2));
+                    annotationObjToSave.pointList.push({
+                        pointID: null,
+                        pointX: relativePt.x,
+                        pointY: -1*relativePt.y
+                    });
+                    break;
+            }
+            var savePromise = _annotationHandler.saveAnnotation(annotationObjToSave);
+            if(savePromise) {
+                savePromise.then(function(resp) {
+                    if(resp.status > -1) {
+                        var newid = resp.annotationInfoList[0].annotationID;
+                        annotation.id = newid;
+                        annotation.user = resp.annotationInfoList[0].userName;
+                        if(isRemoteModeOn) {
+                            //convert points in 40x level
+                            annotationObjToSave.id = newid;
+                            remoteMethods.setAnnotationCreationData(annotationObjToSave);
+                        }
+                    } else {
+                        annoBoard.deleteAnnotationOnOsd({annotation: annotation});
+                        console.log("Save annotation failure");
+                        console.log("Failure: " + JSON.stringify(resp));
+                    }
+                });
+            }
+        });
+
+// This file has no marker and fill related changes
 var userInControl = true;
 (function () {
 

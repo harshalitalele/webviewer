@@ -45,7 +45,8 @@ function WebviewerWrapper (OpenSeadragon) {
       minPixelRatio: 0.5,
       timeout: 50000,
       navigatorPosition: "ABSOLUTE",
-      navigatorTop: "4px"
+      navigatorTop: "4px",
+      navMinPixelRatio: 0.4
     },
     defScale = 1.0,
     maxOsdZoom,

@@ -130,6 +130,8 @@ function WebviewerWrapper (OpenSeadragon) {
     var ROIsNavWidth =  new Array();
     var navigatorHeightTh = "200"; //threshold height of navigator
     var navigatorWidthTh = "250"; //threshold width of navigator
+    var initialNavMinPixRatio = 0.4;
+    var navWidLimit = 300;
     for(var schemaArrayIndex  in ww.arrOfSchemas) {
       var schema = ww.arrOfSchemas[schemaArrayIndex],
         slideDetails = schema.slideImage,
@@ -177,8 +179,9 @@ function WebviewerWrapper (OpenSeadragon) {
           var osdLevel = scaleLevelMap[parseFloat(layer.scale)];
           levelFolderMapRoi[osdLevel + levelMargin + 1] = layer.ifdNum;
         }
-        ROIsNavheight.push(minNavigatorLayer.height*(osdSettings.minPixelRatio+0.01));
-        ROIsNavWidth.push(minNavigatorLayer.width*(osdSettings.minPixelRatio+0.01));
+        ROIsNavheight.push(minNavigatorLayer.height*initialNavMinPixRatio);
+        ROIsNavWidth.push(minNavigatorLayer.width*initialNavMinPixRatio);
+        minNavigatorScale = 1.0;
         ww.osdSettings.roiImageMap.push(currentImage);
         currentROI++;
         levelFolderMapImage.push(levelFolderMapRoi);
@@ -189,15 +192,14 @@ function WebviewerWrapper (OpenSeadragon) {
     }
     var maxH = Math.max.apply(this, ROIsNavheight);
     var maxW = Math.max.apply(this, ROIsNavWidth);
-    if(maxH > navigatorHeightTh) {
-      ww.osdSettings.navigatorHeight = maxH+"px";
+    
+    if(maxW > wLimit) {
+        ww.osdSettings.navigatorHeight = navWidLimit*maxH/maxW +"px";
+        ww.osdSettings.navigatorWidth = navWidLimit +"px";
+        ww.osdSettings.navMinPixelRatio = navWidLimit*initialNavMinPixRatio/maxW - 0.1;
     } else {
-      ww.osdSettings.navigatorHeight = navigatorHeightTh+"px";
-    }
-    if(maxW > navigatorWidthTh) {
-      ww.osdSettings.navigatorWidth = maxW+"px";
-    } else {
-      ww.osdSettings.navigatorWidth = navigatorWidthTh+"px";
+        ww.osdSettings.navigatorHeight = maxH+"px";
+        ww.osdSettings.navigatorWidth = maxW+"px";
     }
 
     console.log(ww.levelFolderMap);

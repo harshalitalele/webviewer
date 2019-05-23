@@ -7430,7 +7430,8 @@ $.Viewer = function( options ) {
             prefixUrl:         this.prefixUrl,
             viewer:            this,
             navigatorRotate:   this.navigatorRotate,
-            crossOriginPolicy: this.crossOriginPolicy
+            crossOriginPolicy: this.crossOriginPolicy,
+            minPixelRatio:     this.navMinPixelRatio
         });
     }
 

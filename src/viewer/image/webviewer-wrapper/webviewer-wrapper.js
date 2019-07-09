@@ -193,6 +193,7 @@ function WebviewerWrapper (OpenSeadragon) {
     }
     var maxH = Math.max.apply(this, ROIsNavheight);
     var maxW = Math.max.apply(this, ROIsNavWidth);
+    var wLimit = '300px';
     
     if(maxW > wLimit) {
         ww.osdSettings.navigatorHeight = navWidLimit*maxH/maxW +"px";
